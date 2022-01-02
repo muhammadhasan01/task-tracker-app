@@ -1,56 +1,56 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"/>
+    <Header title="Task Tracker" />
     <Tasks :tasks="tasks" />
   </div>
 </template>
 
 <script lang="ts">
-import {Options, Vue} from "vue-class-component";
-import {ref} from "vue";
-import {Itask} from "@/utils/interfaces";
+import { Options, Vue } from "vue-class-component";
+import { ref } from "vue";
+import { Itask } from "@/utils/interfaces";
 import Header from "@/components/Header.vue";
 import Tasks from "@/components/Tasks.vue";
 
 @Options({
-  name: 'App',
+  name: "App",
   components: {
     Tasks,
-    Header
+    Header,
   },
   data() {
     return {
-      tasks: ref<Itask[]>()
-    }
+      tasks: ref<Itask[]>(),
+    };
   },
   created() {
-    this.tasks = ref<Itask[]>([{
-      "id": 1,
-      "text": "Doctors Appointment",
-      "day": "March 5th at 2:30pm",
-      "reminder": true
-    },
+    this.tasks = ref<Itask[]>([
       {
-        "id": 2,
-        "text": "Meeting with boss",
-        "day": "March 6th at 1:30pm",
-        "reminder": true
+        id: 1,
+        text: "Doctors Appointment",
+        day: "March 5th at 2:30pm",
+        reminder: true,
       },
       {
-        "id": 3,
-        "text": "Food shopping",
-        "day": "March 7th at 2:00pm",
-        "reminder": false
-      }])
-  }
+        id: 2,
+        text: "Meeting with boss",
+        day: "March 6th at 1:30pm",
+        reminder: true,
+      },
+      {
+        id: 3,
+        text: "Food shopping",
+        day: "March 7th at 2:00pm",
+        reminder: false,
+      },
+    ]);
+  },
 })
-
-export default class App extends Vue {
-}
+export default class App extends Vue {}
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -59,7 +59,7 @@ export default class App extends Vue {
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .container {
