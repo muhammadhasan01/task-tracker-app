@@ -1,6 +1,7 @@
 <template>
-  <div class="task">
-    <h3>{{ task.text }}
+  <div :class="[task.reminder ? 'reminder' : '', 'task']">
+    <h3>
+      {{ task.text }}
       <i class="fas fa-times" />
     </h3>
     <p>{{ task.day }}</p>
