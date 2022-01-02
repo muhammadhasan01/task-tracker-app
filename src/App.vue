@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />
-    <Tasks :tasks="tasks" />
+    <Tasks @delete-task="deleteTask" :tasks="tasks" />
   </div>
 </template>
 
@@ -20,8 +20,15 @@ import Tasks from "@/components/Tasks.vue";
   },
   data() {
     return {
-      tasks: ref<Itask[]>(),
+      tasks: [] as Itask[],
     };
+  },
+  methods: {
+    deleteTask(id: number): void {
+      if (confirm("Are you sure you?")) {
+        this.tasks = this.tasks.filter((task: Itask) => task.id !== id);
+      }
+    },
   },
   created() {
     this.tasks = ref<Itask[]>([
