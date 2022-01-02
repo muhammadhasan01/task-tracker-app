@@ -1,7 +1,11 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />
-    <Tasks @delete-task="deleteTask" :tasks="tasks" />
+    <Tasks
+      @toggle-reminder="toggleReminder"
+      @delete-task="deleteTask"
+      :tasks="tasks"
+    />
   </div>
 </template>
 
@@ -28,6 +32,11 @@ import Tasks from "@/components/Tasks.vue";
       if (confirm("Are you sure you?")) {
         this.tasks = this.tasks.filter((task: Itask) => task.id !== id);
       }
+    },
+    toggleReminder(id: number): void {
+      this.tasks = this.tasks.map((task: Itask) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      );
     },
   },
   created() {
