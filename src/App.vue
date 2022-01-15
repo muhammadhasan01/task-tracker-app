@@ -39,12 +39,27 @@ import AddTask from "@/components/AddTask.vue";
     };
   },
   methods: {
-    addTask(task: Itask) {
-      this.tasks.push(task);
+    async addTask(task: Itask) {
+      const res = await fetch("api/tasks", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(task),
+      });
+      const data = await res.json();
+      this.tasks = [...this.tasks, data];
     },
-    deleteTask(id: number): void {
+    async deleteTask(id: number): Promise<void> {
       if (confirm("Are you sure you?")) {
-        this.tasks = this.tasks.filter((task: Itask) => task.id !== id);
+        const res = await fetch(`api/tasks/${id}`, {
+          method: "DELETE",
+        });
+        if (res.status === 200) {
+          this.tasks = this.tasks.filter((task: Itask) => task.id !== id);
+        } else {
+          alert("Error deleting task");
+        }
       }
     },
     toggleAddTask() {
@@ -56,13 +71,13 @@ import AddTask from "@/components/AddTask.vue";
       );
     },
     async fetchTasks() {
-      const res = await fetch('api/tasks');
+      const res = await fetch("api/tasks");
       return await res.json();
     },
     async fetchTask(id: number) {
-      const res = await fetch(`api/tasks/${id}`)
+      const res = await fetch(`api/tasks/${id}`);
       return await res.json();
-    }
+    },
   },
   async created() {
     this.tasks = ref<Itask[]>(await this.fetchTasks());
