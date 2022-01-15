@@ -9,12 +9,13 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import { PropType } from "vue";
 import { Itask } from "@/utils/interfaces";
 
 import Task from "@/components/Task.vue";
 
-export default {
+export default defineComponent({
   name: "Tasks",
   props: {
     tasks: Array as PropType<Itask[]>,
@@ -23,7 +24,7 @@ export default {
     Task,
   },
   emits: ["delete-task", "toggle-reminder"],
-};
+});
 </script>
 
 <style scoped></style>

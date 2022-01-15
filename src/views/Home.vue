@@ -9,9 +9,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { Itask } from "@/utils/interfaces";
+
 import Tasks from "../components/Tasks";
 import AddTask from "../components/AddTask";
-import { Itask } from "@/utils/interfaces";
 
 export default defineComponent({
   name: "Home",

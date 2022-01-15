@@ -12,14 +12,15 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
 import { Itask } from "@/utils/interfaces";
 
-export default {
+export default defineComponent({
   name: "Task",
   props: {
     task: Object as () => Itask,
   },
-};
+});
 </script>
 
 <style scoped>
