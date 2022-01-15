@@ -1,9 +1,13 @@
 <template>
-  <button @click="onClick()" :style="{background: color}" class="btn">{{ text }}</button>
+  <button @click="onClick()" :style="{ background: color }" class="btn">
+    {{ text }}
+  </button>
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "Button",
   props: {
     text: String,
@@ -11,8 +15,8 @@ export default {
   },
   methods: {
     onClick() {
-      console.log("clicked")
-    }
-  }
-}
+      this.$emit('toggle-add-task')
+    },
+  },
+});
 </script>
