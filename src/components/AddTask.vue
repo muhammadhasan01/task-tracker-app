@@ -23,7 +23,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from "vue";
+
+export default defineComponent({
   name: "AddTask",
   data(): Record<string, unknown> {
     return {
@@ -32,7 +34,26 @@ export default {
       reminder: false,
     };
   },
-};
+  methods: {
+    onSubmit(e: Event) {
+      e.preventDefault();
+      const { text, day, reminder } = this;
+      if (!text) {
+        alert("please add text");
+        return;
+      }
+      const newTask = {
+        text,
+        day,
+        reminder,
+      };
+      this.$emit("add-task", newTask);
+      this.text = "";
+      this.day = "";
+      this.reminder = false;
+    },
+  },
+});
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <Header title="Task Tracker" />
-    <AddTask />
+    <AddTask @add-task="addTask" />
     <Tasks
       @toggle-reminder="toggleReminder"
       @delete-task="deleteTask"
@@ -32,6 +32,9 @@ import AddTask from "@/components/AddTask.vue";
     };
   },
   methods: {
+    addTask(task: Itask) {
+      this.tasks.push(task);
+    },
     deleteTask(id: number): void {
       if (confirm("Are you sure you?")) {
         this.tasks = this.tasks.filter((task: Itask) => task.id !== id);
