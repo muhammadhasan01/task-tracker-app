@@ -39,7 +39,7 @@ import AddTask from "@/components/AddTask.vue";
     };
   },
   methods: {
-    async addTask(task: Itask) {
+    async addTask(task: Itask): Promise<void> {
       const res = await fetch("api/tasks", {
         method: "POST",
         headers: {
@@ -62,24 +62,34 @@ import AddTask from "@/components/AddTask.vue";
         }
       }
     },
-    toggleAddTask() {
+    toggleAddTask(): void {
       this.showAddTask = !this.showAddTask;
     },
-    toggleReminder(id: number): void {
+    async toggleReminder(id: number): Promise<void> {
+      const taskToToggle = await this.fetchTask(id);
+      const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
+      const res = await fetch(`api/tasks/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(updTask),
+      });
+      const data = await res.json();
       this.tasks = this.tasks.map((task: Itask) =>
-        task.id === id ? { ...task, reminder: !task.reminder } : task
+        task.id === id ? { ...task, reminder: data.reminder } : task
       );
     },
-    async fetchTasks() {
+    async fetchTasks(): Promise<void> {
       const res = await fetch("api/tasks");
       return await res.json();
     },
-    async fetchTask(id: number) {
+    async fetchTask(id: number): Promise<void> {
       const res = await fetch(`api/tasks/${id}`);
       return await res.json();
     },
   },
-  async created() {
+  async created(): Promise<void> {
     this.tasks = ref<Itask[]>(await this.fetchTasks());
   },
 })
